@@ -16,7 +16,9 @@
 # could match a directory name.
 # ==========================================================
 ASYN_MODULE_VERSION             = R4.39-1.0.2
-
+YAMLLOADER_MODULE_VERSION     = R2.3.8
+YAMLDOWNLOADER_MODULE_VERSION = R1.2.5
+YCPSWASYN_MODULE_VERSION        = R3.4.2
 
 # ==========================================================
 # Define module paths using pattern
@@ -25,6 +27,10 @@ ASYN_MODULE_VERSION             = R4.39-1.0.2
 # FOO = /Full/Path/To/Development/Version
 # ==========================================================
 ASYN             = $(EPICS_MODULES)/asyn/$(ASYN_MODULE_VERSION)
+WAVEFORM_DRIVER  = $(EPICS_MODULES)/WaveformReaderAsyn
+YAMLLOADER=$(EPICS_MODULES)/yamlLoader/$(YAMLLOADER_MODULE_VERSION)
+YAMLDOWNLOADER = $(EPICS_MODULES)/yamlDownloader/$(YAMLDOWNLOADER_MODULE_VERSION)
+YCPSWASYN        = $(EPICS_MODULES)/ycpswasyn/$(YCPSWASYN_MODULE_VERSION)
 
 # =====================================================================
 # Set EPICS_BASE last so it appears last in the DB, DBD, INCLUDE, and LIB search paths
