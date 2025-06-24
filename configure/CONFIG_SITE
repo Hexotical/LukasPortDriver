@@ -19,7 +19,7 @@ CHECK_RELEASE = YES
 # Set this when you only want to compile this application
 #   for a subset of the cross-compiled target architectures
 #   that Base is built for.
-#CROSS_COMPILER_TARGET_ARCHS = vxWorks-ppc32
+CROSS_COMPILER_TARGET_ARCHS = linuxRT-x86_64
 
 # To install files into a location other than $(TOP) define
 #   INSTALL_LOCATION here.
@@ -41,9 +41,23 @@ CHECK_RELEASE = YES
 -include $(TOP)/../CONFIG_SITE.local
 -include $(TOP)/configure/CONFIG_SITE.local
 
+# =============================
+# Build Application Statically
+# =============================
+SHARED_LIBRARIES=NO
+STATIC_BUILD=YES
+LINUXRT_BUILDROOT_VERSION=buildroot-2019.08
+
 ifdef T_A
 PKG_ARCH=$(T_A)
 endif
+
+# # FFTW
+FFTW_PACKAGE_NAME     = fftw
+FFTW_VERSION          = fftw-3.3.9
+FFTW_TOP              = $(PACKAGE_SITE_TOP)/$(FFTW_PACKAGE_NAME)/$(FFTW_VERSION)
+FFTW_LIB              = $(FFTW_TOP)/$(PKG_ARCH)/lib
+FFTW_INCLUDE          = $(FFTW_TOP)/$(PKG_ARCH)/include
 
 # # TIRPC
 TIRPC_PACKAGE_NAME    = tirpc
@@ -92,3 +106,4 @@ WAVEFORMREADERASYN_NAME=WaveformReaderAsyn
 # WAVEFORMREADERASYN_TOP=$(PACKAGE_TOP)/$(CENTRAL_NODE_ENGINE_NAME)/$(CENTRAL_NODE_ENGINE_VERSION)
 WAVEFORMREADERASYN_TOP=$(EPICS_MODULES)/$(WAVEFORMREADERASYN_NAME)
 WAVEFORMREADERASYN_LIB=$(WAVEFORMREADERASYN_TOP)/lib/$(PKG_ARCH)
+

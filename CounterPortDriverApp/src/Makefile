@@ -8,9 +8,14 @@ include $(TOP)/configure/CONFIG
 #=============================
 # Build the IOC application
 
-USR_INCLUDES = $(addprefix -I,$(BOOST_INCLUDE) $(CPSW_FRAMEWORK_INCLUDE) $(YAML_INCLUDE) $(YAMLREADER_INCLUDE) $(DEVICELIB_INCLUDE) $(FFTW_INCLUDE))
+USR_INCLUDES += -I$(BOOST_INCLUDE)
+USR_INCLUDES += -I$(CPSW_FRAMEWORK_INCLUDE)
+USR_INCLUDES += -I$(YAML_INCLUDE)
+USR_INCLUDES += -I$(YAMLREADER_INCLUDE)
+USR_INCLUDES += -I$(DEVICELIB_INCLUDE)
+USR_INCLUDES += -I$(FFTW_INCLUDE)
 
-USR_INCLUDES 			  += -I$(EPICS_MODULES)/WaveformReaderAsyn/src
+#USR_INCLUDES 			  += -I$(EPICS_MODULES)/WaveformReaderAsyn/src
 # LukasWaveformReader_DIR     = $(EPICS_MODULES)/WaveformReaderAsyn/lib/rhel9-x86_64
 LukasWaveformReader_DIR     = $(WAVEFORMREADERASYN_LIB)
 
@@ -19,15 +24,20 @@ cpsw_DIR         = $(CPSW_FRAMEWORK_LIB)
 yaml-cpp_DIR     = $(YAML_LIB)
 deviceLib_DIR    = $(DEVICELIB_LIB)
 yamlReader_DIR   = $(YAMLREADER_LIB)
-fftw_DIR		 = $(FFTW_LIB)
+fftw3_DIR		 = $(FFTW_LIB)
 boost_system_DIR = $(BOOST_LIB)
+tirpc_DIR         = $(TIRPC_LIB)
+USR_LIBS_Linux += fftw3
 USR_LIBS_Linux += LukasWaveformReader
 USR_LIBS_Linux += cpsw
-USR_LIBS_Linux += yaml-cpp
-USR_LIBS_Linux += deviceLib
-USR_LIBS_Linux += yamlReader 
-USR_LIBS_Linux += fftw3
 USR_LIBS_Linux += boost_system
+USR_LIBS_Linux += yaml-cpp
+USR_LIBS_Linux += yamlReader
+USR_LIBS_Linux += deviceLib
+
+ifeq ($(NEEDS_TIRPC),YES)
+USR_LIBS_Linux += tirpc
+endif
 
 PROD_IOC = CounterPortDriver
 # CounterPortDriver.dbd will be created and installed
